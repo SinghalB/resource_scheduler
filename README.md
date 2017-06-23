@@ -1,8 +1,14 @@
 # resource_scheduler
 Resource Scheduler Problem
 
-Usage: ./scheduler offers.txt jobs.txt
+Compiling:
+cd resource_scheduler
+make
 
+Running:
+./scheduler offers.txt jobs.txt
+
+Arguments:
 offers.txt - contains tuples of node and resources like
 	1 1
 	2 2
@@ -41,6 +47,9 @@ Source Files:
 src/offer.cc - add job to a particular nodes job list
 src/scheduler.cc - scheduling and main function
 
+
+Tested on:
+Ubuntu 14.04 VM
 
 TBD:
 Better print messages
