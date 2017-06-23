@@ -1,0 +1,34 @@
+#include <iostream>
+#include "../include/offer.h"
+
+Offer::Offer(int node, int units) {
+	std::cout<<"Constructor"<<std::endl;
+	node_id = node;
+	no_units = units;
+	no_jobs_executed = 0;
+}
+
+Offer::~Offer() {
+	std::cout<<"Destructor"<<std::endl;
+}
+
+void Offer:addJob(Job *job) {
+	no_units = no_units - job->res_units;
+	jobList.push_back(job);
+}
+
+void Offer::step() {
+	for(std::vector<Jobs *>::iterator jobItr = jobList.begin(); jobItr != jobList.end(); jobItr++) {
+		if (jobItr->start_time + jobItr->time_unit == CURRENT_TIME) {
+			jobItr->end_time = CURRENT_TIME;
+			no_units = no_units + jobItr->res_units;
+			no_jobs_executed++;
+			jobList.erase(jobItr);
+		}
+	}
+}
+
+void printStats() {
+	std::cout<<"Node id:"<<node_id<<" Resources Available:"<<no_units<<" Jobs Executed:"<<no_jobs_executed<<std::endl;
+}
+
