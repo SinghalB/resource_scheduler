@@ -21,20 +21,19 @@ void Offer::addJob(Job &job) {
 }
 
 void Offer::step() {
-	size_t count = 0;
-	for(std::vector<Job>::iterator jobItr = jobList.begin(); jobItr != jobList.end(); jobItr++) {
-		count++;
+	for(std::vector<Job>::iterator jobItr = jobList.begin(); jobItr != jobList.end(); ) {
 		if (jobItr->getStartTime() + jobItr->getTimeUnits() == CURRENT_TIME) {
 			jobItr->setEndTime(CURRENT_TIME);
 			no_units = no_units + jobItr->getResUnits();
 			no_jobs_executed++;
 			std::cout<<"Job completed at Node "<<node_id<<" at "<<jobItr->getEndTime()<<std::endl;
-			jobList.erase(jobItr);
-			count--;
+			jobItr = jobList.erase(jobItr);
 			running_jobs--;
-			if(jobList.empty()||count == jobList.size()) {
+			if(jobList.empty()) {
 				break;
 			}
+		} else {
+			jobItr++;
 		}
 	}
 }

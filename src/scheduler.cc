@@ -19,14 +19,11 @@ void schedule() {
 			/* try to schedule a job */
 			std::vector<Job>::iterator jItr = jobVec.begin();
 			std::vector<Offer>::iterator oItr = offerVec.begin();
-			size_t count = 0;
 			while(jItr != jobVec.end() && oItr != offerVec.end()) {
-				count++; 
 				if (jItr->getResUnits() <= oItr->availableUnits()) {
 					oItr->addJob((*jItr));
-					jobVec.erase(jItr);
-					count--;
-					if (jobVec.empty() || count == jobVec.size()) {
+					jItr = jobVec.erase(jItr);
+					if (jobVec.empty()) {
 						break;
 					}
 				} else {
